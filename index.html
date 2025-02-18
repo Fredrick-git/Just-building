@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Responsive Navbar</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #6366f1;
+            --background-color: #ffffff;
+            --text-color: #1f2937;
+            --hover-color: #4f46e5;
+        }
+
+        [data-theme="dark"] {
+            --primary-color: #818cf8;
+            --background-color: #1a1a1a;
+            --text-color: #f3f4f6;
+            --hover-color: #6366f1;
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            transition: all 0.3s ease;
+        }
+
+        .navbar {
+            background-color: var(--background-color) !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 0.8rem 1rem;
+        }
+
+        .nav-icon {
+            color: var(--text-color);
+            font-size: 1.4rem;
+            margin: 0 0.5rem;
+            padding: 0.5rem;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .nav-icon:hover {
+            background-color: rgba(79, 70, 229, 0.1);
+            transform: scale(1.1);
+            color: var(--hover-color);
+        }
+
+        .search-input {
+            background-color: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 25px;
+            padding: 0.6rem 1.5rem;
+            color: var(--text-color);
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.3);
+        }
+
+        .dropdown-menu {
+            background-color: var(--background-color);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .dropdown-item {
+            color: var(--text-color);
+            transition: all 0.2s ease;
+        }
+
+        .dropdown-item:hover {
+            background-color: rgba(79, 70, 229, 0.1);
+            color: var(--hover-color);
+        }
+
+        .theme-toggle {
+            cursor: pointer;
+            margin-left: 1rem;
+        }
+    </style>
+</head>
+<body data-theme="light">
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <!-- Logo -->
+            <a class="navbar-brand" href="#">
+                <img src="https://via.placeholder.com/40" alt="Logo" class="rounded-circle">
+            </a>
+
+            <!-- Toggle Button -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Nav Items -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <div class="ms-auto d-flex align-items-center">
+                    <!-- Search -->
+                    <input type="text" class="search-input me-3" placeholder="Search...">
+
+                    <!-- Icons -->
+                    <div class="d-flex align-items-center">
+                        <!-- Theme Toggle -->
+                        <i class="bx bx-moon theme-toggle nav-icon" id="themeToggle"></i>
+
+                        <!-- Notifications -->
+                        <i class="bx bx-bell nav-icon"></i>
+
+                        <!-- Language -->
+                        <div class="dropdown">
+                            <i class="bx bx-flag nav-icon" data-bs-toggle="dropdown"></i>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">English</a></li>
+                                <li><a class="dropdown-item" href="#">Spanish</a></li>
+                                <li><a class="dropdown-item" href="#">French</a></li>
+                            </ul>
+                        </div>
+
+                        <!-- Messages -->
+                        <div class="dropdown">
+                            <i class="bx bx-envelope nav-icon" data-bs-toggle="dropdown"></i>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><h6 class="dropdown-header">New Messages</h6></li>
+                                <li><a class="dropdown-item" href="#">Message 1</a></li>
+                                <li><a class="dropdown-item" href="#">Message 2</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="#">View All</a></li>
+                            </ul>
+                        </div>
+
+                        <!-- Account -->
+                        <div class="dropdown">
+                            <i class="bx bx-user-circle nav-icon" data-bs-toggle="dropdown"></i>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><h6 class="dropdown-header">Account</h6></li>
+                                <li><a class="dropdown-item" href="#">Profile</a></li>
+                                <li><a class="dropdown-item" href="#">Settings</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="#">Logout</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            body.setAttribute('data-theme', newTheme);
+            themeToggle.classList.toggle('bx-moon');
+            themeToggle.classList.toggle('bx-sun');
+        });
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.dropdown')) {
+                document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                    menu.classList.remove('show');
+                });
+            }
+        });
+    </script>
+</body>
+  </html>
